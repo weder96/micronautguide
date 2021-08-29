@@ -38,12 +38,9 @@ SDKMAN! is a tool for managing parallel versions of multiple Software Developmen
 $ sdk install gradle 7.2
 
 
-
-
 CREATING YOUR FIRST MICRONAUT APPLICATION
 Learn how to create a Hello World Micronaut application with a controller and a functional test.
 
-Authors: Iván López, Sergio del Amo
 
 Micronaut Version: 3.0.0
 
