@@ -60,4 +60,7 @@ public class BibliotecaServiceImpl implements BibliotecaService {
     public void adiciona(Livro livro) {
         this.dao.adiciona(livro);
     }
+
+    @Override
+    public Integer compute(Integer num) { return num * 4;  }
 }

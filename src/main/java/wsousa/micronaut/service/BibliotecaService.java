@@ -24,4 +24,6 @@ public interface BibliotecaService {
     int contagemDosLivros();
 
     void adiciona(Livro livro);
+
+    Integer compute(Integer num);
 }

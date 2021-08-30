@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("io.micronaut.application") version "2.0.3"
+    id("groovy")
 }
 
 version = "0.1"
@@ -20,8 +21,6 @@ micronaut {
 }
 
 dependencies {
-    compileOnly('org.projectlombok:lombok:1.18.12')
-    annotationProcessor('org.projectlombok:lombok:1.18.12')
     annotationProcessor("io.micronaut:micronaut-http-validation")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-runtime")
@@ -33,11 +32,36 @@ dependencies {
     implementation("io.micronaut.rxjava2:micronaut-rxjava2-http-client")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi:3.0.1")
     implementation("io.swagger.core.v3:swagger-annotations")
-    annotationProcessor "io.micronaut.configuration:micronaut-openapi:1.4.0"
-    // compile "io.swagger.core.v3:swagger-annotations:2.1.1"
-    compileOnly "io.micronaut.configuration:micronaut-openapi:1.4.0"
+    annotationProcessor("io.micronaut.configuration:micronaut-openapi:1.4.0")
+    compileOnly("org.projectlombok:lombok:1.18.20")
+    annotationProcessor("org.projectlombok:lombok:1.18.20")
+    testCompileOnly("org.projectlombok:lombok:1.18.20")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
+    compileOnly("io.micronaut:micronaut-inject-groovy")
+    testImplementation("io.micronaut:micronaut-inject-groovy")
 
+    // mandatory dependencies for using Spock
+    implementation "org.codehaus.groovy:groovy:3.0.8"
+    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+    testImplementation("io.micronaut.test:micronaut-test-spock")
+    testImplementation("org.spockframework:spock-core:2.0-groovy-3.0") {
+        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    }
+    testImplementation("org.spockframework:spock-junit4")  // you can remove this if your code does not rely on old JUnit 4 rules
+
+    // optional dependencies for using Spock
+    testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
+    testRuntimeOnly "net.bytebuddy:byte-buddy:1.11.0" // allows mocking of classes (in addition to interfaces)
+    testRuntimeOnly "org.objenesis:objenesis:3.2"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
 }
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 
 
 application {

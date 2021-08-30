@@ -19,8 +19,13 @@ public class BibliotecaController {
     }
 
     @Get
-    public List<Livro> index() {
+    public List<Livro> listagemLivrosPorTitulo() {
         List<Livro> livros = bibliotecaService.pesquisaLivrosDeComputacaoAgrupadosPorTitulo();
         return livros;
+    }
+
+    @Get("/hello")
+    public String index() {
+        return "Hello World";
     }
 }
